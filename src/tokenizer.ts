@@ -6,6 +6,7 @@ export enum TokenTypes {
     RightParentheses = 'RightParentheses',
     JSXText = 'JSXText',
     BackSlash = 'BackSlash',
+    AttributeExpressionValue = "AttributeExpressionValue"
 }
 
 export interface Token {
@@ -111,6 +112,20 @@ function attributeValue(char: string) { // char="
         currentToken.type = TokenTypes.AttributeStringValue// 字符串格式的属性值
         currentToken.value = ''
         return attributeStringValue
+    } else if (char === '{') {
+        currentToken.type = TokenTypes.AttributeExpressionValue
+        currentToken.value = ''
+        return attributeExpressionValue
+    }
+    throw new TypeError('Error');
+}
+function attributeExpressionValue(char: string) {
+    if (LETTERS.test(char)) {
+        currentToken.value += char
+        return attributeExpressionValue
+    } else if (char === '}') {
+        emit(currentToken)
+        return tryLeaveAttribute
     }
 }
 function attributeStringValue(char: string) {
