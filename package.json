@@ -1,0 +1,12 @@
+{
+  "name": "jsx-compilation",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "test": "vitest watch --run"
+  },
+  "dependencies": {
+    "vitest": "^0.24.3"
+  }
+}
