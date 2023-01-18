@@ -21,7 +21,7 @@ let currentToken: Token = {
 const LETTERS = /[a-z0-9]/
 let tokens: Token[] = []
 
-function emit(token) {
+function emit(token: Token) {
     // currentToken重置
     currentToken = {
         type: '',
@@ -32,6 +32,7 @@ function emit(token) {
 
 export function tokenizer(input: string) {
     let state: any = start
+    // @ts-ignore
     for (const char of input) {
         if (state) {
             state = state(char)

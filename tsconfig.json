@@ -3,7 +3,9 @@
     "target": "es2016", /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */
     "lib": [
       "DOM",
-      "es6"
+      "es6",
+      "ES2015",
+      "ES2019"
     ],
     "module": "esnext", /* Specify the root folder within your source files. */
     "moduleResolution": "node",
