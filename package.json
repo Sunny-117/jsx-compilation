@@ -1,10 +1,12 @@
 {
   "name": "jsx-compilation",
   "version": "1.0.0",
-  "main": "index.js",
+  "module": "jsx-transform.esm.js",
+  "type": "module",
   "license": "MIT",
   "scripts": {
-    "test": "vitest watch"
+    "test": "vitest watch",
+    "build": "vite build"
   },
   "dependencies": {
     "vite": "^4.0.4",

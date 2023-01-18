@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import './App.css'
-import { tokenizer } from '../../src/tokenizer'
+// @ts-ignore
+import { tokenizer } from '../lib/jsx-compilation'
 const jsxExample = `<h1 id="title" name="name"><span>hello</span>world</h1>`
 
 
