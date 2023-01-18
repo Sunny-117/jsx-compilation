@@ -4,9 +4,13 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "test": "vitest watch --run"
+    "test": "vitest watch"
   },
   "dependencies": {
+    "vite": "^4.0.4",
     "vitest": "^0.24.3"
+  },
+  "devDependencies": {
+    "unplugin-auto-import": "^0.12.1"
   }
 }
