@@ -1,4 +1,4 @@
-export default function parser(tokens) {
+export function parser(tokens) {
     return {}
 
 }

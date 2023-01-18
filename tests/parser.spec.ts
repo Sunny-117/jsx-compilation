@@ -1,4 +1,4 @@
-import parser from "../src/parser";
+import { parser } from "../src/parser";
 describe("parser", () => {
   it("parser tokens to ast", () => {
     const tokens = []
