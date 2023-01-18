@@ -1,15 +1,16 @@
 import { tokenizer } from "../src/tokenizer";
 
 describe("tokenizer", () => {
-    it("hello world", () => {
-        let sourceCode = '<h1 id="title" name={name}><span>hello</span>world</h1>'
+    it("full call expression", () => {
+        let sourceCode = '<h1 id="title" name="name"><span>hello</span>world</h1>'
         const res1 = tokenizer(sourceCode)
-        console.log('[ res1 ] >', res1)
         const res2 = [
             { type: 'LeftParentheses', value: '<' },
             { type: 'JSXIdentifier', value: 'h1' },
             { type: 'AttributeKey', value: 'id' },
             { type: 'AttributeStringValue', value: 'title' },
+            { type: 'AttributeKey', value: 'name' },
+            { type: 'AttributeStringValue', value: 'name' },
             { type: 'RightParentheses', value: '>' },
             { type: 'LeftParentheses', value: '<' },
             { type: 'JSXIdentifier', value: 'span' },
@@ -25,8 +26,7 @@ describe("tokenizer", () => {
             { type: 'JSXIdentifier', value: 'h1' },
             { type: 'RightParentheses', value: '>' }
         ]
-
-        // expect(res1).toEqual(res2);
+        expect(res1).toEqual(res2);
     });
 });
 
