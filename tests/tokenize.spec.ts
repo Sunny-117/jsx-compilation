@@ -2,7 +2,7 @@ import { tokenize } from "../src/tokenize";
 
 describe("tokenize", () => {
     it("parser tokens to ast", () => {
-        const tokens = '2+3*4'
+        const tokens = '2+3*4*5'
 
         const res = tokenize(tokens)
         const peek1 = res.peek()
