@@ -1,3 +1,7 @@
+
+/**
+ * 有限状态机
+ */
 export enum TokenTypes {
     LeftParentheses = 'LeftParentheses',
     JSXIdentifier = 'JSXIdentifier',

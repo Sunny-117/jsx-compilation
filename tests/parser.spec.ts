@@ -1,13 +1,7 @@
 import { parser } from "../src/parser";
 describe("parser", () => {
   it("parser tokens to ast", () => {
-    const tokens = [
-      { type: 'NUMBER', value: '2' },
-      { type: 'PLUS', value: '+' },
-      { type: 'NUMBER', value: '3' },
-      { type: 'MULTIPLY', value: '*' },
-      { type: 'NUMBER', value: '4' }
-    ]
+    const tokens = '2+3*4'
 
     const ast = {
       "type": "Program",

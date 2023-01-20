@@ -4,7 +4,10 @@
  * @returns ast
  */
 
-export function parser(tokens) {
+import { tokenize } from "./tokenize"
+
+export function parser(script) {
+    let tokens = tokenize(script)
     return {
         "type": "Program",
         "children": [
