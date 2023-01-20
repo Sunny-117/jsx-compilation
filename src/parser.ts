@@ -6,12 +6,14 @@
 
 import { toAST } from "./toAST"
 import { tokenize } from "./tokenize"
+import { TokenReader } from "./TokenReader"
 
 
 
 export function parser(script) {
-    let tokenReader = tokenize(script)
+    let tokenReader: TokenReader = tokenize(script)
     let AST = toAST(tokenReader)
+    console.log(AST)
     return AST
     // return {
     //     "type": "Program",

@@ -1,10 +1,12 @@
 export class ASTNode {
     public type: string;
-    public value: string;
-    public children: string[] | undefined
-    constructor(type, value?) {
+    public value?: string;
+    public children: ASTNode[] | undefined
+    constructor(type: string, value?: string | undefined) {
         this.type = type
-        this.value = value ? value : null
+        if (value) {
+            this.value = value
+        }
     }
     appendChild(childNode) {
         if (!this.children) {
