@@ -2,9 +2,8 @@ import React, { useState } from 'react'
 import './App.css'
 // @ts-ignore
 import { tokenizer as tsTokenizer } from '../lib/jsx-compilation'
-// Rust tokenizer temporarily disabled until WASM integration is complete
-// @ts-ignore
-// import { tokenizer as rustTokenizer } from 'jsx-compilation-rs'
+// Import WASM module - will be loaded dynamically
+let wasmTokenizer: any = null;
 
 const jsxExample = `<h1 id="title" name="name"><span>hello</span>world</h1>`
 
@@ -20,6 +19,8 @@ export default function App() {
     setLeftValue(jsxExample)
   }
 
+  // WASM module is automatically initialized, no need for manual init
+
   const transformSourceCode = async (sourceCode: string) => {
     if (!sourceCode.trim()) {
       setRightValue('请输入JSX表达式')
@@ -34,8 +35,25 @@ export default function App() {
       let startTime = performance.now();
 
       if (tokenizerType === 'rust') {
-        // Rust tokenizer temporarily disabled
-        throw new Error('Rust tokenizer is temporarily disabled. WASM integration is in progress.')
+        try {
+          // Load WASM module dynamically
+          if (!wasmTokenizer) {
+            const wasmModule = await import('../../jsx-compilation-rs/pkg/jsx_compilation_rs.js');
+            wasmTokenizer = wasmModule.tokenizer;
+          }
+
+          // Use Rust WASM tokenizer
+          const wasmTokens = wasmTokenizer(sourceCode);
+          // Convert WASM result to regular array
+          tokens = [];
+          for (let i = 0; i < wasmTokens.length; i++) {
+            tokens.push(wasmTokens[i]);
+          }
+        } catch (error) {
+          // Fallback to TypeScript if WASM fails
+          console.warn('WASM tokenizer failed, falling back to TypeScript:', error);
+          tokens = tsTokenizer(sourceCode);
+        }
       } else {
         // Use TypeScript tokenizer
         tokens = tsTokenizer(sourceCode)
@@ -44,8 +62,14 @@ export default function App() {
       let endTime = performance.now();
       let processingTime = (endTime - startTime).toFixed(2);
 
+      // Determine actual tokenizer used
+      let actualTokenizer: string = tokenizerType;
+      if (tokenizerType === 'rust' && !wasmTokenizer) {
+        actualTokenizer = 'typescript (fallback)';
+      }
+
       const result = {
-        tokenizer: tokenizerType,
+        tokenizer: actualTokenizer,
         processingTime: `${processingTime}ms`,
         tokenCount: tokens.length,
         tokens: tokens

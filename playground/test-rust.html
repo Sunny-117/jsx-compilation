@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Rust Tokenizer</title>
+</head>
+<body>
+    <h1>Test Rust WASM Tokenizer</h1>
+    <div id="output"></div>
+    
+    <script type="module">
+        import { tokenizer } from '../jsx-compilation-rs/pkg/jsx_compilation_rs.js';
+        
+        const output = document.getElementById('output');
+        
+        try {
+            const jsx = '<div>Hello World</div>';
+            console.log('Testing JSX:', jsx);
+            
+            const tokens = tokenizer(jsx);
+            console.log('Tokens:', tokens);
+            
+            output.innerHTML = `
+                <p><strong>Input:</strong> ${jsx}</p>
+                <p><strong>Tokens:</strong> ${JSON.stringify(tokens, null, 2)}</p>
+                <p><strong>Status:</strong> ✅ Success!</p>
+            `;
+        } catch (error) {
+            console.error('Error:', error);
+            output.innerHTML = `
+                <p><strong>Status:</strong> ❌ Error</p>
+                <p><strong>Message:</strong> ${error.message}</p>
+            `;
+        }
+    </script>
+</body>
+</html>
